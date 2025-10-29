@@ -12,4 +12,4 @@ tags:
     description: task related endpoints
 paths:
   /tasks:
-    $ref: paths/tasks.yaml
+    $ref: ./paths/tasks.yaml
