@@ -5,7 +5,8 @@ info:
 servers:
   - url: http://localhost:8080
     description: local dev servers
-  - url: https://task-api-ini9.onrender.com
+  - url: https://task-api-kwr6.onrender.com/tasks
+
     description: production server on render
 tags:
   - name: tasks
