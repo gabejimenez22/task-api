@@ -1,47 +1,84 @@
-get:
-  summary: list all /tasks
-  tags:
-    - tasks
-  parameters:
-    - name: completed
-      in: query
-      required: false
-      description: filter tasks by completion status
-      schema:
-        type: booleam
-        example: true
-    - name: limit
-      in: query
-      required: false
-      description: maximum number of tasks returned
-      schema:
-        type: integer
-        example: 10
-  responses:
-    ' 200':
-      description: OK
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $REF: '../components/schemas/Task.yaml'
-post:
-  summary: Create a new task
-  tags:
-    - tasks
-  requestBody:
-    required: true
-    content:
-      application/json:
+/tasks:
+  get:
+    summary: List all tasks
+    tags:
+      - tasks
+    parameters:
+      - name: completed
+        in: query
+        required: false
+        description: Filter tasks by completion status
         schema:
-          $REF: '../components/schemas/Task.yaml'
-  responses:
-    '201':
-      description: task created successfully
+          type: boolean
+          example: true
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of tasks returned
+        schema:
+          type: integer
+          example: 10
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../components/task.yaml#/Task'
+
+  post:
+    summary: Create a new task
+    tags:
+      - tasks
+    requestBody:
+      required: true
       content:
         application/json:
           schema:
-            $REF: '../components/schemas/Task.yaml'
-    '400':
-      $REF: '../components/responses/badrequest.yaml'
+            $ref: '../components/task.yaml#/NewTask'
+    responses:
+      '201':
+        description: Task created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/task.yaml#/Task'
+      '400':
+        description: Validation error
+        content:
+          application/json:
+            $ref: '../components/validation-error.yaml#/ValidationError'
+
+/tasks/{id}:
+  get:
+    summary: Get a task by ID
+    tags:
+      - tasks
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: Numeric ID of the task
+    responses:
+      '200':
+        description: Task found
+        content:
+          application/json:
+            schema:
+              $ref: '../components/task.yaml#/Task'
+      '400':
+        description: Validation error
+        content:
+          application/json:
+            schema:
+              $ref: '../components/validation-error.yaml#/ValidationError'
+      '404':
+        description: Task not found
+        content:
+          application/json:
+            schema:
+              $ref: '../components/not-found-error.yaml#/NotFoundError'

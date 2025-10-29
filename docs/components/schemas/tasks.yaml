@@ -1,12 +1,29 @@
-type: object
-properties:
-  id:
-    readOnly: true
-    type: integer
-    example: 1
-  title:
-    type: string
-    example: Buy groceries
-  completed:
-    type: boolean
-    example: false
+Task:
+  type: object
+  properties:
+    id:
+      readOnly: true
+      type: integer
+      example: 1
+    title:
+      type: string
+      example: Buy groceries
+    completed:
+      type: boolean
+      example: false
+  required:
+    - id
+    - title
+    - completed
+
+NewTask:
+  type: object
+  properties:
+    title:
+      type: string
+      example: Buy groceries
+    completed:
+      type: boolean
+      example: false
+  required:
+    - title
