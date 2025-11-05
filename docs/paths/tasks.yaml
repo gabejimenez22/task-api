@@ -1,51 +1,52 @@
-get:
-  summary: List all tasks
-  tags:
-    - Tasks
-  parameters:
-    - name: completed
-      in: query
-      required: false
-      schema:
-        type: boolean
-        example: true
-    - name: limit
-      in: query
-      required: false
-      schema:
-        type: integer
-        example: 10
-  responses:
-    '200':
-      description: OK
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: ../components/schemas/Task.yaml
-
-post:
-  summary: Create a new task
-  tags:
-    - Tasks
-  requestBody:
-    required: true
-    content:
-      application/json:
+/tasks:
+  get:
+    summary: List all tasks
+    tags:
+      - Tasks
+    parameters:
+      - name: completed
+        in: query
+        required: false
         schema:
-          $ref: ../components/schemas/Task.yaml
-  responses:
-    '201':
-      description: Task created successfully
+          type: boolean
+          example: true
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          example: 10
+    responses:
+      '200':
+        description: OK
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '../components/schemas/Task.yaml'
+
+  post:
+    summary: Create a new task
+    tags:
+      - Tasks
+    requestBody:
+      required: true
       content:
         application/json:
           schema:
-            $ref: ../components/schemas/Task.yaml
-    '400':
-      $ref: ../components/responses/BadRequest.yaml
+            $ref: '../components/schemas/Task.yaml'
+    responses:
+      '201':
+        description: Task created successfully
+        content:
+          application/json:
+            schema:
+              $ref: '../components/schemas/Task.yaml'
+      '400':
+        $ref: '../components/responses/BadRequest.yaml'
 
-'/tasks/{id}':
+/tasks/{id}:
   get:
     summary: Get a single task by ID
     tags:
@@ -63,8 +64,8 @@ post:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Task'
+              $ref: '../components/schemas/Task.yaml'
       '400':
-        $ref: '#/components/responses/BadRequest'
+        $ref: '../components/responses/BadRequest.yaml'
       '404':
-        $ref: '#/components/responses/NotFound'
+        $ref: '../components/responses/NotFound.yaml'
