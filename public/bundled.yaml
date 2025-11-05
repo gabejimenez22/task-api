@@ -20,14 +20,12 @@ paths:
         - name: completed
           in: query
           required: false
-          description: Filter tasks by completion status
           schema:
             type: boolean
             example: true
         - name: limit
           in: query
           required: false
-          description: Maximum number of tasks to return
           schema:
             type: integer
             example: 10
@@ -59,6 +57,29 @@ paths:
                 $ref: '#/components/schemas/Task'
         '400':
           $ref: '#/components/responses/BadRequest'
+    /tasks/{id}:
+      get:
+        summary: Get a single task by ID
+        tags:
+          - Tasks
+        parameters:
+          - name: id
+            in: path
+            required: true
+            schema:
+              type: integer
+              example: 1
+        responses:
+          '200':
+            description: OK
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Task'
+          '400':
+            $ref: '#/components/responses/BadRequest'
+          '404':
+            $ref: '#/components/responses/NotFound'
 components:
   schemas:
     Task:
